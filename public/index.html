@@ -171,5 +171,71 @@
   }
 </script>
 
+  <script>
+  function show(id) {
+    document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  function atualizarContador() {
+    const inicio = new Date("2025-10-24");
+    const hoje = new Date();
+    const diff = hoje - inicio;
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("contador").innerText =
+      dias >= 0 ? `Estamos juntos há ${dias} dias 💖` : `Nossa história começa em breve 💕`;
+  }
+
+  atualizarContador();
+
+  function addFotos(event) {
+    const galeria = document.getElementById('galeria');
+    [...event.target.files].forEach(file => {
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.style.width = '120px';
+      img.style.borderRadius = '12px';
+      img.style.boxShadow = '0 2px 6px rgba(0,0,0,.2)';
+      galeria.appendChild(img);
+    });
+  }
+
+  /* =======================
+     CALENDÁRIO DIAS JUNTOS
+     ======================= */
+
+  const inicioRelacionamento = new Date("2025-10-24");
+
+  function montarCalendario() {
+    const hoje = new Date();
+    const calendario = document.getElementById("calendario");
+    const contadorDias = document.getElementById("contador-dias");
+
+    calendario.innerHTML = "";
+
+    const totalDias = Math.floor(
+      (hoje - inicioRelacionamento) / (1000 * 60 * 60 * 24)
+    );
+
+    contadorDias.innerText =
+      totalDias >= 0
+        ? `Estamos juntos há ${totalDias} dias ❤️`
+        : `Nossa história começa em breve 💕`;
+
+    for (let i = 0; i <= totalDias; i++) {
+      const dia = document.createElement("div");
+      dia.innerText = i + 1;
+      dia.style.padding = "12px";
+      dia.style.borderRadius = "14px";
+      dia.style.background = "#ff8fb1";
+      dia.style.color = "white";
+      dia.style.fontWeight = "bold";
+      dia.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
+      calendario.appendChild(dia);
+    }
+  }
+
+  montarCalendario();
+</script>
 </body>
 </html>
