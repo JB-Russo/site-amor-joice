@@ -1,22 +1,167 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <title>💖 Júlio & Joice 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonte fofa -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      background: pink;
-      text-align: center;
-      font-family: Arial, sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Baloo 2', cursive;
     }
-    h1 {
+
+    body {
+      background: linear-gradient(180deg, #ffd6e7, #fff);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* MENU LATERAL */
+    .menu {
+      width: 230px;
+      background: #ff9acb;
+      padding: 20px;
       color: white;
-      margin-top: 40px;
+    }
+
+    .menu h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .menu button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 12px;
+      background: white;
+      color: #ff4f9a;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* CONTEÚDO */
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .card img {
+      max-width: 200px;
+      margin: 10px auto;
+    }
+
+    .contador {
+      font-size: 26px;
+      color: #ff4f9a;
+      margin: 10px 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .menu {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+      }
+      .menu button {
+        margin-right: 10px;
+        min-width: 150px;
+      }
     }
   </style>
+
 </head>
+
 <body>
-  <h1>🐱💖 Site do Amor 💖🐱</h1>
-  <p>Se você está vendo isso, deu tudo certo 😭✨</p>
+
+  <!-- MENU -->
+
+  <div class="menu">
+    <h2>🐱💖 Menu 💖🐱</h2>
+    <button onclick="show('home')">Início</button>
+    <button onclick="show('dias')">Dias Juntos</button>
+    <button onclick="show('album')">Álbum</button>
+    <button onclick="show('surpresa')">Surpresa 🎁</button>
+  </div>
+
+  <!-- CONTEÚDO -->
+
+  <div class="content">
+
+```
+<!-- HOME -->
+<div id="home" class="card">
+  <h1>💖 Júlio & Joice 💖</h1>
+  <img src="https://i.imgur.com/7Qp7Z9U.png" alt="Hello Kitty">
+  <p class="contador" id="contador"></p>
+  <p>Um site feito com todo amor do mundo 🐱🎀</p>
+</div>
+
+<!-- DIAS -->
+<div id="dias" class="card hidden">
+  <h2>📅 Nossa história</h2>
+  <p>Estamos juntos desde:</p>
+  <h3>24 de outubro de 2025 💕</h3>
+</div>
+
+<!-- ALBUM -->
+<div id="album" class="card hidden">
+  <h2>📸 Nosso álbum</h2>
+  <p>Em breve nossas fotos mais lindas aqui 💖</p>
+</div>
+
+<!-- SURPRESA -->
+<div id="surpresa" class="card hidden">
+  <h2>🎁 Surpresa</h2>
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  <p>Joice, você é a coisa mais linda da minha vida 💌</p>
+</div>
+```
+
+  </div>
+
+  <script>
+    function show(id) {
+      document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function atualizarContador() {
+      const inicio = new Date("2025-10-24");
+      const hoje = new Date();
+      const diff = hoje - inicio;
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById("contador").innerText =
+        dias >= 0 ? `Estamos juntos há ${dias} dias 💖` : `Nossa história começa em breve 💕`;
+    }
+
+    atualizarContador();
+  </script>
+
 </body>
 </html>
