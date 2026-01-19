@@ -66,6 +66,7 @@ body {
   display: none;
 }
 
+/* CALENDÁRIO */
 .calendario {
   margin-top: 20px;
   display: grid;
@@ -168,7 +169,9 @@ style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padd
 
 <div id="game" class="card hidden">
   <h2>🎮 Clique nos Corações 💕</h2>
-  <p>Pontuação: <span id="score">0</span></p>
+  <p>⏱️ Tempo: <span id="tempo">30</span>s</p>
+  <p>❤️ Pontos: <span id="score">0</span></p>
+  <p>🏆 Recorde: <span id="recorde">0</span></p>
   <div class="game-area" id="gameArea"></div>
 </div>
 
@@ -178,6 +181,7 @@ style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padd
   <h2>🎁 Surpresa</h2>
   <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="200">
   <p style="margin-top:10px">Joice, você é a coisa mais linda da minha vida 💌</p>
+  <p id="msg-secreta" style="margin-top:10px;font-size:18px;color:#ff4f9a"></p>
 </div>
 
 </div>
@@ -229,8 +233,23 @@ montarCalendario();
 
 /* MINI GAME */
 let score = 0;
+let tempo = 30;
+let recorde = localStorage.getItem("recorde") || 0;
+let intervaloGame;
+let intervaloTempo;
+
 const gameArea = document.getElementById("gameArea");
 const scoreEl = document.getElementById("score");
+const tempoEl = document.getElementById("tempo");
+const recordeEl = document.getElementById("recorde");
+const msgSecreta = document.getElementById("msg-secreta");
+
+recordeEl.innerText = recorde;
+
+function tocarSom() {
+  const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3");
+  audio.play();
+}
 
 function spawnHeart() {
   const heart = document.createElement("div");
@@ -239,17 +258,47 @@ function spawnHeart() {
   heart.style.left = Math.random() * 90 + "%";
 
   heart.onclick = () => {
+    tocarSom();
     score++;
     scoreEl.innerText = score;
     heart.remove();
   };
 
   gameArea.appendChild(heart);
-
   setTimeout(() => heart.remove(), 4000);
 }
 
-setInterval(spawnHeart, 800);
+function iniciarGame() {
+  score = 0;
+  tempo = 30;
+  scoreEl.innerText = score;
+  tempoEl.innerText = tempo;
+  gameArea.innerHTML = "";
+  msgSecreta.innerText = "";
+
+  intervaloGame = setInterval(spawnHeart, 700);
+  intervaloTempo = setInterval(() => {
+    tempo--;
+    tempoEl.innerText = tempo;
+
+    if (tempo <= 0) {
+      clearInterval(intervaloGame);
+      clearInterval(intervaloTempo);
+
+      if (score > recorde) {
+        recorde = score;
+        localStorage.setItem("recorde", recorde);
+        recordeEl.innerText = recorde;
+      }
+
+      if (score >= 20) {
+        msgSecreta.innerText = "💖 Você desbloqueou a surpresa! Eu te amo, Joice 💖";
+      }
+    }
+  }, 1000);
+}
+
+document.querySelector("button[onclick=\"show('game')\"]").addEventListener("click", iniciarGame);
 </script>
 
 </body>
