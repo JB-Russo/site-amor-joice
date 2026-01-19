@@ -1,104 +1,110 @@
-
-```html
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>💖 Júlio & Joice 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>💖 Júlio & Joice 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Baloo 2', cursive;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Baloo 2', cursive;
+}
 
-    body {
-      background: linear-gradient(180deg, #ffd6e7, #fff);
-      min-height: 100vh;
-      display: flex;
-    }
+body {
+  background: linear-gradient(180deg, #ffd6e7, #fff);
+  min-height: 100vh;
+  display: flex;
+}
 
-    .menu {
-      width: 230px;
-      background: #ff9acb;
-      padding: 20px;
-      color: white;
-    }
+/* MENU */
+.menu {
+  width: 230px;
+  background: #ff9acb;
+  padding: 20px;
+  color: white;
+}
 
-    .menu h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+.menu h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-    .menu button {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      border: none;
-      border-radius: 12px;
-      background: white;
-      color: #ff4f9a;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.menu button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  color: #ff4f9a;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    .content {
-      flex: 1;
-      padding: 20px;
-    }
+/* CONTEÚDO */
+.content {
+  flex: 1;
+  padding: 20px;
+}
 
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  text-align: center;
+}
 
-    .card img {
-      max-width: 200px;
-      margin: 10px auto;
-    }
+.hidden {
+  display: none;
+}
 
-    .contador {
-      font-size: 26px;
-      color: #ff4f9a;
-      margin: 10px 0;
-    }
+.calendario {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
 
-    .hidden {
-      display: none;
-    }
+.dia {
+  padding: 14px;
+  background: #ff8fb1;
+  color: white;
+  border-radius: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,.15);
+}
 
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
-      .menu {
-        width: 100%;
-        display: flex;
-        overflow-x: auto;
-      }
-      .menu button {
-        margin-right: 10px;
-        min-width: 150px;
-      }
-    }
-  </style>
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  .menu {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+  }
+  .menu button {
+    margin-right: 10px;
+    min-width: 150px;
+  }
+}
+</style>
+
 </head>
 
 <body>
 
 <a href="https://wa.me/5541995131841" target="_blank"
-   style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px 20px;border-radius:50px;font-size:16px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,.3);">
-   💬 Falar com você
-</a>
+style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px 20px;border-radius:50px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,.3)">
+💬 Falar com você </a>
 
 <div class="menu">
   <h2>🐱💖 Menu 💖🐱</h2>
@@ -108,134 +114,90 @@
   <button onclick="show('surpresa')">Surpresa 🎁</button>
 </div>
 
-<div id="dias" class="card hidden">
-  <h2>📅 Nossa história</h2>
-  <p>Estamos juntos desde:</p>
-  <h3>24 de outubro de 2025 💕</h3>
+<div class="content">
 
-  <div id="contador-dias" style="margin-top:15px;font-size:22px;color:#ff4f9a;"></div>
+<!-- INÍCIO -->
 
-  <div id="calendario"
-       style="margin-top:20px;display:grid;grid-template-columns:repeat(7,1fr);gap:10px;">
-  </div>
+<div id="home" class="card">
+  <h1>💖 Júlio & Joice 💖</h1>
+  <img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" width="200">
+  <p style="margin-top:10px">Um site feito com todo amor do mundo 🐱🎀</p>
 </div>
 
+<!-- DIAS JUNTOS -->
 
-  <div id="dias" class="card hidden">
-    <h2>📅 Nossa história</h2>
-    <p>Estamos juntos desde:</p>
-    <h3>24 de outubro de 2025 💕</h3>
-  </div>
+<div id="dias" class="card hidden">
+  <h2>📅 Nossa história</h2>
+  <h3>24 de outubro de 2025 💕</h3>
 
-  <div id="album" class="card hidden">
-    <h2>📸 Nosso álbum</h2>
-    <input type="file" accept="image/*" multiple onchange="addFotos(event)">
-    <div id="galeria" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:15px;"></div>
-  </div>
+  <div id="contador-dias" style="margin-top:15px;font-size:22px;color:#ff4f9a"></div>
 
-  <div id="surpresa" class="card hidden">
-    <h2>🎁 Surpresa</h2>
-    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
-    <p>Joice, você é a coisa mais linda da minha vida 💌</p>
-  </div>
+  <div id="calendario" class="calendario"></div>
+</div>
+
+<!-- ÁLBUM -->
+
+<div id="album" class="card hidden">
+  <h2>📸 Nosso álbum</h2>
+  <input type="file" accept="image/*" multiple onchange="addFotos(event)">
+  <div id="galeria" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:15px"></div>
+</div>
+
+<!-- SURPRESA -->
+
+<div id="surpresa" class="card hidden">
+  <h2>🎁 Surpresa</h2>
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="200">
+  <p style="margin-top:10px">Joice, você é a coisa mais linda da minha vida 💌</p>
+</div>
 
 </div>
 
 <script>
-  function show(id) {
-    document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-  }
+function show(id) {
+  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
 
-  function atualizarContador() {
-    const inicio = new Date("2025-10-24");
-    const hoje = new Date();
-    const diff = hoje - inicio;
-    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("contador").innerText =
-      dias >= 0 ? `Estamos juntos há ${dias} dias 💖` : `Nossa história começa em breve 💕`;
-  }
+function addFotos(event) {
+  const galeria = document.getElementById('galeria');
+  [...event.target.files].forEach(file => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.style.width = '120px';
+    img.style.borderRadius = '12px';
+    img.style.boxShadow = '0 2px 6px rgba(0,0,0,.2)';
+    galeria.appendChild(img);
+  });
+}
 
-  atualizarContador();
+/* CALENDÁRIO */
+const inicioRelacionamento = new Date("2025-10-24");
 
-  function addFotos(event) {
-    const galeria = document.getElementById('galeria');
-    [...event.target.files].forEach(file => {
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(file);
-      img.style.width = '120px';
-      img.style.borderRadius = '12px';
-      img.style.boxShadow = '0 2px 6px rgba(0,0,0,.2)';
-      galeria.appendChild(img);
-    });
+function montarCalendario() {
+  const hoje = new Date();
+  const calendario = document.getElementById("calendario");
+  const contador = document.getElementById("contador-dias");
+
+  calendario.innerHTML = "";
+
+  const totalDias = Math.floor((hoje - inicioRelacionamento) / (1000 * 60 * 60 * 24));
+
+  contador.innerText =
+    totalDias >= 0
+      ? `Estamos juntos há ${totalDias} dias ❤️`
+      : `Nossa história começa em breve 💕`;
+
+  for (let i = 0; i <= totalDias; i++) {
+    const dia = document.createElement("div");
+    dia.className = "dia";
+    dia.innerText = i + 1;
+    calendario.appendChild(dia);
   }
+}
+
+montarCalendario();
 </script>
 
-  <script>
-  function show(id) {
-    document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-  }
-
-  function atualizarContador() {
-    const inicio = new Date("2025-10-24");
-    const hoje = new Date();
-    const diff = hoje - inicio;
-    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("contador").innerText =
-      dias >= 0 ? `Estamos juntos há ${dias} dias 💖` : `Nossa história começa em breve 💕`;
-  }
-
-  atualizarContador();
-
-  function addFotos(event) {
-    const galeria = document.getElementById('galeria');
-    [...event.target.files].forEach(file => {
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(file);
-      img.style.width = '120px';
-      img.style.borderRadius = '12px';
-      img.style.boxShadow = '0 2px 6px rgba(0,0,0,.2)';
-      galeria.appendChild(img);
-    });
-  }
-
-  /* =======================
-     CALENDÁRIO DIAS JUNTOS
-     ======================= */
-
-  const inicioRelacionamento = new Date("2025-10-24");
-
-  function montarCalendario() {
-    const hoje = new Date();
-    const calendario = document.getElementById("calendario");
-    const contadorDias = document.getElementById("contador-dias");
-
-    calendario.innerHTML = "";
-
-    const totalDias = Math.floor(
-      (hoje - inicioRelacionamento) / (1000 * 60 * 60 * 24)
-    );
-
-    contadorDias.innerText =
-      totalDias >= 0
-        ? `Estamos juntos há ${totalDias} dias ❤️`
-        : `Nossa história começa em breve 💕`;
-
-    for (let i = 0; i <= totalDias; i++) {
-      const dia = document.createElement("div");
-      dia.innerText = i + 1;
-      dia.style.padding = "12px";
-      dia.style.borderRadius = "14px";
-      dia.style.background = "#ff8fb1";
-      dia.style.color = "white";
-      dia.style.fontWeight = "bold";
-      dia.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
-      calendario.appendChild(dia);
-    }
-  }
-
-  montarCalendario();
-</script>
 </body>
 </html>
