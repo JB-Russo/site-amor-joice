@@ -5,21 +5,30 @@ const path = require('path');
 
 const app = express();
 app.use(express.json());
-app.use(express.static(__dirname));
 
+// 📁 SERVIR O SITE CORRETAMENTE
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// 📲 TWILIO (nomes certos)
 const client = twilio(
-  process.env.TWILIO_SID,
-  process.env.TWILIO_AUTH
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
 );
 
-const SITE_URL = 'https://SEU-SITE.onrender.com';
+const SITE_URL = 'https://site-amor-joice.onrender.com';
 let numeroJoice = '';
 
+// 📞 DEFINIR NÚMERO
 app.post('/set-number', (req, res) => {
   numeroJoice = req.body.numero;
   res.json({ ok: true });
 });
 
+// 💌 FUNÇÃO DE ENVIO
 function enviarMensagem(texto, gif) {
   if (!numeroJoice) return;
 
@@ -31,6 +40,7 @@ function enviarMensagem(texto, gif) {
   });
 }
 
+// 📅 TODO DIA 24 (9h)
 cron.schedule('0 9 24 * *', () => {
   enviarMensagem(
     '💖 Mais um mês juntinhos, meu amor! Você é tudo pra mim.',
@@ -38,6 +48,7 @@ cron.schedule('0 9 24 * *', () => {
   );
 });
 
+// 🎀 MENSAGENS ALEATÓRIAS
 cron.schedule('0 */6 * * *', () => {
   if (Math.random() > 0.7) {
     enviarMensagem(
@@ -47,6 +58,8 @@ cron.schedule('0 */6 * * *', () => {
   }
 });
 
-app.listen(process.env.PORT || 10000, () => {
+// 🚀 SERVIDOR
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
   console.log('Servidor rodando 💖');
 });
