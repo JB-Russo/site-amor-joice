@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -9,296 +8,287 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Baloo 2', cursive;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Baloo 2', cursive;
 }
 
-body {
-  background: linear-gradient(180deg, #ffd6e7, #fff);
-  min-height: 100vh;
-  display: flex;
+body{
+  background:linear-gradient(180deg,#ffd6e7,#fff);
+  min-height:100vh;
+  display:flex;
+  overflow-x:hidden;
 }
 
-/* MENU */
-.menu {
-  width: 230px;
-  background: #ff9acb;
-  padding: 20px;
-  color: white;
+.menu{
+  width:230px;
+  background:#ff9acb;
+  padding:20px;
+  color:white;
 }
 
-.menu h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.menu h2{
+  text-align:center;
+  margin-bottom:15px;
 }
 
-.menu button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 12px;
-  background: white;
-  color: #ff4f9a;
-  font-size: 16px;
-  cursor: pointer;
+.menu button{
+  width:100%;
+  margin-bottom:10px;
+  padding:10px;
+  border:none;
+  border-radius:15px;
+  background:white;
+  color:#ff4f9a;
+  font-size:16px;
+  cursor:pointer;
+  transition:.2s;
 }
 
-/* CONTEÚDO */
-.content {
-  flex: 1;
-  padding: 20px;
+.menu button:hover{
+  transform:scale(1.05);
 }
 
-.card {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,.1);
-  text-align: center;
+.content{
+  flex:1;
+  padding:20px;
 }
 
-.hidden {
-  display: none;
+.card{
+  background:white;
+  border-radius:25px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+  text-align:center;
 }
 
-/* CALENDÁRIO */
-.calendario {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
+.hidden{display:none}
+
+img.kitty{
+  width:80px;
+  position:fixed;
+  opacity:.25;
 }
 
-.dia {
-  padding: 14px;
-  background: #ff8fb1;
-  color: white;
-  border-radius: 14px;
-  font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0,0,0,.15);
+.k1{top:20px;left:260px}
+.k2{bottom:20px;right:20px}
+.k3{top:200px;right:50px}
+
+button, .click{
+  transition:.15s;
 }
 
-/* MINI GAME */
-.game-area {
-  position: relative;
-  height: 300px;
-  background: #ffe3ef;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 15px;
+button:active, .click:active{
+  transform:scale(.92);
 }
 
-.heart {
-  position: absolute;
-  font-size: 32px;
-  cursor: pointer;
-  animation: float 4s linear forwards;
+/* Calendários */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:10px;
+  margin-top:15px;
 }
 
-@keyframes float {
-  from { transform: translateY(300px); opacity: 1; }
-  to { transform: translateY(-50px); opacity: 0; }
+.dia{
+  padding:15px;
+  background:#ff8fb1;
+  color:white;
+  border-radius:15px;
+  font-weight:bold;
 }
 
-@media (max-width: 768px) {
-  body {
-    flex-direction: column;
-  }
-  .menu {
-    width: 100%;
-    display: flex;
-    overflow-x: auto;
-  }
-  .menu button {
-    margin-right: 10px;
-    min-width: 150px;
-  }
+/* Mini game */
+#gameArea{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
 }
+
+.heart{
+  font-size:32px;
+  cursor:pointer;
+}
+
 </style>
-
 </head>
 
 <body>
 
-<a href="https://wa.me/5541995131841" target="_blank"
-style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px 20px;border-radius:50px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,.3)">
-💬 Falar com você </a>
+<!-- Música -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/09/audio_4b1f6dfc6d.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Hello Kitty espalhada -->
+<img src="https://i.imgur.com/7yUvePI.png" class="kitty k1">
+<img src="https://i.imgur.com/7yUvePI.png" class="kitty k2">
+<img src="https://i.imgur.com/7yUvePI.png" class="kitty k3">
 
 <div class="menu">
-  <h2>🐱💖 Menu 💖🐱</h2>
-  <button onclick="show('home')">Início</button>
-  <button onclick="show('dias')">Dias Juntos</button>
-  <button onclick="show('album')">Álbum</button>
-  <button onclick="show('game')">Mini Game 🎮</button>
-  <button onclick="show('surpresa')">Surpresa 🎁</button>
+<h2>🐱💖 Menu 💖🐱</h2>
+<button onclick="show('home')">Início</button>
+<button onclick="show('dias')">Dias Juntos</button>
+<button onclick="show('filmes')">Calendário de Filmes</button>
+<button onclick="show('game')">Mini Game</button>
+<button onclick="show('album')">Álbum</button>
+<button onclick="show('surpresa')">Surpresa 🎁</button>
 </div>
 
 <div class="content">
 
 <!-- INÍCIO -->
-
 <div id="home" class="card">
-  <h1>💖 Júlio & Joice 💖</h1>
-  <img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" width="200">
-  <p style="margin-top:10px">Um site feito com todo amor do mundo 🐱🎀</p>
+<h2>💗 Bem-vinda, Joice 💗</h2>
+<img src="https://media.giphy.com/media/LHZyixOnHwDDy/giphy.gif" width="200">
+<p>Esse site é só nosso 🐱💞</p>
 </div>
 
 <!-- DIAS JUNTOS -->
-
 <div id="dias" class="card hidden">
-  <h2>📅 Nossa história</h2>
-  <h3>24 de outubro de 2025 💕</h3>
-  <div id="contador-dias" style="margin-top:15px;font-size:22px;color:#ff4f9a"></div>
-  <div id="calendario" class="calendario"></div>
+<h2>📅 Nossa história</h2>
+<select id="mesRelacionamento" onchange="calendarioRelacionamento()"></select>
+<div id="contador-dias"></div>
+<div id="calRel" class="grid"></div>
 </div>
 
-<!-- ÁLBUM -->
-
-<div id="album" class="card hidden">
-  <h2>📸 Nosso álbum</h2>
-  <input type="file" accept="image/*" multiple onchange="addFotos(event)">
-  <div id="galeria" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:15px"></div>
+<!-- FILMES -->
+<div id="filmes" class="card hidden">
+<h2>🎬 Calendário de Filmes</h2>
+<select id="mesFilmes" onchange="calendarioFilmes()"></select>
+<div id="calFilmes" class="grid"></div>
 </div>
 
 <!-- MINI GAME -->
-
 <div id="game" class="card hidden">
-  <h2>🎮 Clique nos Corações 💕</h2>
-  <p>⏱️ Tempo: <span id="tempo">30</span>s</p>
-  <p>❤️ Pontos: <span id="score">0</span></p>
-  <p>🏆 Recorde: <span id="recorde">0</span></p>
-  <div class="game-area" id="gameArea"></div>
+<h2>💖 Clique nos corações!</h2>
+<p>Pontos: <span id="pontos">0</span></p>
+<div id="gameArea"></div>
+<button onclick="finalizarGame()">Finalizar</button>
+<h3>🏆 Ranking</h3>
+<ul id="ranking"></ul>
+</div>
+
+<!-- ÁLBUM -->
+<div id="album" class="card hidden">
+<h2>📸 Nosso Álbum</h2>
+<input type="file" multiple accept="image/*" onchange="addFotos(event)">
+<div id="galeria" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:15px;"></div>
 </div>
 
 <!-- SURPRESA -->
-
 <div id="surpresa" class="card hidden">
-  <h2>🎁 Surpresa</h2>
-  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="200">
-  <p style="margin-top:10px">Joice, você é a coisa mais linda da minha vida 💌</p>
-  <p id="msg-secreta" style="margin-top:10px;font-size:18px;color:#ff4f9a"></p>
+<h2>🎁 Surpresa</h2>
+<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="200">
+<p>Você é meu mundo 💌</p>
 </div>
 
 </div>
 
 <script>
-function show(id) {
-  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
+function show(id){
+ document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
 }
 
-function addFotos(event) {
-  const galeria = document.getElementById('galeria');
-  [...event.target.files].forEach(file => {
-    const img = document.createElement('img');
-    img.src = URL.createObjectURL(file);
-    img.style.width = '120px';
-    img.style.borderRadius = '12px';
-    img.style.boxShadow = '0 2px 6px rgba(0,0,0,.2)';
-    galeria.appendChild(img);
-  });
+/* DIAS JUNTOS */
+const inicio=new Date(2025,9,24);
+
+function calendarioRelacionamento(){
+ const mes=document.getElementById('mesRelacionamento').value;
+ const data=new Date(mes+"-01");
+ const cal=document.getElementById('calRel');
+ cal.innerHTML="";
+ const hoje=new Date();
+ const diasTotal=Math.floor((hoje-inicio)/(1000*60*60*24));
+ document.getElementById('contador-dias').innerText=`Estamos juntos há ${diasTotal} dias 💖`;
+
+ for(let i=1;i<=31;i++){
+   const d=new Date(data.getFullYear(),data.getMonth(),i);
+   if(d.getMonth()!==data.getMonth())break;
+   const div=document.createElement('div');
+   div.className='dia';
+   div.innerText=i;
+   cal.appendChild(div);
+ }
 }
 
-/* CALENDÁRIO */
-const inicioRelacionamento = new Date("2025-10-24");
-
-function montarCalendario() {
-  const hoje = new Date();
-  const calendario = document.getElementById("calendario");
-  const contador = document.getElementById("contador-dias");
-
-  calendario.innerHTML = "";
-
-  const totalDias = Math.floor((hoje - inicioRelacionamento) / (1000 * 60 * 60 * 24));
-
-  contador.innerText =
-    totalDias >= 0
-      ? `Estamos juntos há ${totalDias} dias ❤️`
-      : `Nossa história começa em breve 💕`;
-
-  for (let i = 0; i <= totalDias; i++) {
-    const dia = document.createElement("div");
-    dia.className = "dia";
-    dia.innerText = i + 1;
-    calendario.appendChild(dia);
-  }
+function preencherMeses(select){
+ for(let i=0;i<12;i++){
+  const d=new Date(2025,i,1);
+  const opt=document.createElement('option');
+  opt.value=`${d.getFullYear()}-${String(i+1).padStart(2,'0')}`;
+  opt.innerText=d.toLocaleString('pt-BR',{month:'long',year:'numeric'});
+  select.appendChild(opt);
+ }
 }
 
-montarCalendario();
+preencherMeses(mesRelacionamento);
+calendarioRelacionamento();
+
+/* FILMES */
+const filmes={
+ "2026-01":{5:"Titanic",12:"Your Name",20:"Diário de uma Paixão"}
+};
+
+function calendarioFilmes(){
+ const mes=mesFilmes.value;
+ const data=new Date(mes+"-01");
+ const cal=document.getElementById('calFilmes');
+ cal.innerHTML="";
+ for(let i=1;i<=31;i++){
+  const d=new Date(data.getFullYear(),data.getMonth(),i);
+  if(d.getMonth()!==data.getMonth())break;
+  const div=document.createElement('div');
+  div.className='dia';
+  div.innerHTML=i+(filmes[mes]?.[i]?`<br>🎥 ${filmes[mes][i]}`:"");
+  cal.appendChild(div);
+ }
+}
+
+preencherMeses(mesFilmes);
+calendarioFilmes();
 
 /* MINI GAME */
-let score = 0;
-let tempo = 30;
-let recorde = localStorage.getItem("recorde") || 0;
-let intervaloGame;
-let intervaloTempo;
+let pontos=0;
+function criarGame(){
+ const area=document.getElementById('gameArea');
+ area.innerHTML="";
+ for(let i=0;i<20;i++){
+  const h=document.createElement('div');
+  h.className='heart';
+  h.innerText='💖';
+  h.onclick=()=>{pontos++;document.getElementById('pontos').innerText=pontos;}
+  area.appendChild(h);
+ }
+}
+criarGame();
 
-const gameArea = document.getElementById("gameArea");
-const scoreEl = document.getElementById("score");
-const tempoEl = document.getElementById("tempo");
-const recordeEl = document.getElementById("recorde");
-const msgSecreta = document.getElementById("msg-secreta");
-
-recordeEl.innerText = recorde;
-
-function tocarSom() {
-  const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3");
-  audio.play();
+function finalizarGame(){
+ const nome=prompt("Seu nome:");
+ if(!nome)return;
+ const li=document.createElement('li');
+ li.innerText=`${nome}: ${pontos} pontos`;
+ ranking.appendChild(li);
+ pontos=0;
+ document.getElementById('pontos').innerText=0;
+ criarGame();
 }
 
-function spawnHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerText = "❤️";
-  heart.style.left = Math.random() * 90 + "%";
-
-  heart.onclick = () => {
-    tocarSom();
-    score++;
-    scoreEl.innerText = score;
-    heart.remove();
-  };
-
-  gameArea.appendChild(heart);
-  setTimeout(() => heart.remove(), 4000);
+/* ÁLBUM */
+function addFotos(e){
+ [...e.target.files].forEach(f=>{
+  const img=document.createElement('img');
+  img.src=URL.createObjectURL(f);
+  img.style.width='120px';
+  img.style.borderRadius='15px';
+  galeria.appendChild(img);
+ });
 }
-
-function iniciarGame() {
-  score = 0;
-  tempo = 30;
-  scoreEl.innerText = score;
-  tempoEl.innerText = tempo;
-  gameArea.innerHTML = "";
-  msgSecreta.innerText = "";
-
-  intervaloGame = setInterval(spawnHeart, 700);
-  intervaloTempo = setInterval(() => {
-    tempo--;
-    tempoEl.innerText = tempo;
-
-    if (tempo <= 0) {
-      clearInterval(intervaloGame);
-      clearInterval(intervaloTempo);
-
-      if (score > recorde) {
-        recorde = score;
-        localStorage.setItem("recorde", recorde);
-        recordeEl.innerText = recorde;
-      }
-
-      if (score >= 20) {
-        msgSecreta.innerText = "💖 Você desbloqueou a surpresa! Eu te amo, Joice 💖";
-      }
-    }
-  }, 1000);
-}
-
-document.querySelector("button[onclick=\"show('game')\"]").addEventListener("click", iniciarGame);
 </script>
 
 </body>
