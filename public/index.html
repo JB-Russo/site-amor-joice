@@ -82,6 +82,28 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,.15);
 }
 
+/* MINI GAME */
+.game-area {
+  position: relative;
+  height: 300px;
+  background: #ffe3ef;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.heart {
+  position: absolute;
+  font-size: 32px;
+  cursor: pointer;
+  animation: float 4s linear forwards;
+}
+
+@keyframes float {
+  from { transform: translateY(300px); opacity: 1; }
+  to { transform: translateY(-50px); opacity: 0; }
+}
+
 @media (max-width: 768px) {
   body {
     flex-direction: column;
@@ -111,6 +133,7 @@ style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padd
   <button onclick="show('home')">Início</button>
   <button onclick="show('dias')">Dias Juntos</button>
   <button onclick="show('album')">Álbum</button>
+  <button onclick="show('game')">Mini Game 🎮</button>
   <button onclick="show('surpresa')">Surpresa 🎁</button>
 </div>
 
@@ -129,9 +152,7 @@ style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padd
 <div id="dias" class="card hidden">
   <h2>📅 Nossa história</h2>
   <h3>24 de outubro de 2025 💕</h3>
-
   <div id="contador-dias" style="margin-top:15px;font-size:22px;color:#ff4f9a"></div>
-
   <div id="calendario" class="calendario"></div>
 </div>
 
@@ -141,6 +162,14 @@ style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padd
   <h2>📸 Nosso álbum</h2>
   <input type="file" accept="image/*" multiple onchange="addFotos(event)">
   <div id="galeria" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:15px"></div>
+</div>
+
+<!-- MINI GAME -->
+
+<div id="game" class="card hidden">
+  <h2>🎮 Clique nos Corações 💕</h2>
+  <p>Pontuação: <span id="score">0</span></p>
+  <div class="game-area" id="gameArea"></div>
 </div>
 
 <!-- SURPRESA -->
@@ -197,6 +226,30 @@ function montarCalendario() {
 }
 
 montarCalendario();
+
+/* MINI GAME */
+let score = 0;
+const gameArea = document.getElementById("gameArea");
+const scoreEl = document.getElementById("score");
+
+function spawnHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+  heart.style.left = Math.random() * 90 + "%";
+
+  heart.onclick = () => {
+    score++;
+    scoreEl.innerText = score;
+    heart.remove();
+  };
+
+  gameArea.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 4000);
+}
+
+setInterval(spawnHeart, 800);
 </script>
 
 </body>
