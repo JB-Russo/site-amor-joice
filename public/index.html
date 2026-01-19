@@ -67,25 +67,17 @@ body{
 
 .hidden{display:none}
 
-img.kitty{
-  width:80px;
+/* HELLO KITTY */
+.kitty{
+  width:70px;
   position:fixed;
-  opacity:.25;
+  opacity:.3;
 }
-
 .k1{top:20px;left:260px}
 .k2{bottom:20px;right:20px}
-.k3{top:200px;right:50px}
+.k3{top:220px;right:40px}
 
-button, .click{
-  transition:.15s;
-}
-
-button:active, .click:active{
-  transform:scale(.92);
-}
-
-/* Calendários */
+/* CALENDÁRIOS */
 .grid{
   display:grid;
   grid-template-columns:repeat(7,1fr);
@@ -94,24 +86,32 @@ button:active, .click:active{
 }
 
 .dia{
-  padding:15px;
+  padding:14px;
   background:#ff8fb1;
   color:white;
   border-radius:15px;
   font-weight:bold;
 }
 
-/* Mini game */
+/* MINI GAME */
 #gameArea{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
+  position:relative;
+  height:320px;
+  border-radius:20px;
+  overflow:hidden;
+  background:#ffe6f0;
 }
 
 .heart{
+  position:absolute;
   font-size:32px;
   cursor:pointer;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(350px)}
+  to{transform:translateY(-50px)}
 }
 
 </style>
@@ -121,10 +121,10 @@ button:active, .click:active{
 
 <!-- Música -->
 <audio autoplay loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/09/audio_4b1f6dfc6d.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/audio/2022/10/09/audio_4b1f6dfc6d.mp3">
 </audio>
 
-<!-- Hello Kitty espalhada -->
+<!-- Hello Kitty -->
 <img src="https://i.imgur.com/7yUvePI.png" class="kitty k1">
 <img src="https://i.imgur.com/7yUvePI.png" class="kitty k2">
 <img src="https://i.imgur.com/7yUvePI.png" class="kitty k3">
@@ -133,7 +133,7 @@ button:active, .click:active{
 <h2>🐱💖 Menu 💖🐱</h2>
 <button onclick="show('home')">Início</button>
 <button onclick="show('dias')">Dias Juntos</button>
-<button onclick="show('filmes')">Calendário de Filmes</button>
+<button onclick="show('filmes')">Filmes</button>
 <button onclick="show('game')">Mini Game</button>
 <button onclick="show('album')">Álbum</button>
 <button onclick="show('surpresa')">Surpresa 🎁</button>
@@ -143,29 +143,28 @@ button:active, .click:active{
 
 <!-- INÍCIO -->
 <div id="home" class="card">
-<h2>💗 Bem-vinda, Joice 💗</h2>
+<h2>💗 Júlio & Joice 💗</h2>
 <img src="https://media.giphy.com/media/LHZyixOnHwDDy/giphy.gif" width="200">
-<p>Esse site é só nosso 🐱💞</p>
+<p>Nosso cantinho fofo 🐱💞</p>
 </div>
 
 <!-- DIAS JUNTOS -->
 <div id="dias" class="card hidden">
 <h2>📅 Nossa história</h2>
-<select id="mesRelacionamento" onchange="calendarioRelacionamento()"></select>
-<div id="contador-dias"></div>
+<div id="contador"></div>
 <div id="calRel" class="grid"></div>
 </div>
 
 <!-- FILMES -->
 <div id="filmes" class="card hidden">
-<h2>🎬 Calendário de Filmes</h2>
+<h2>🎬 Filmes do Mês</h2>
 <select id="mesFilmes" onchange="calendarioFilmes()"></select>
 <div id="calFilmes" class="grid"></div>
 </div>
 
 <!-- MINI GAME -->
 <div id="game" class="card hidden">
-<h2>💖 Clique nos corações!</h2>
+<h2>💖 Pegue os corações!</h2>
 <p>Pontos: <span id="pontos">0</span></p>
 <div id="gameArea"></div>
 <button onclick="finalizarGame()">Finalizar</button>
@@ -177,14 +176,14 @@ button:active, .click:active{
 <div id="album" class="card hidden">
 <h2>📸 Nosso Álbum</h2>
 <input type="file" multiple accept="image/*" onchange="addFotos(event)">
-<div id="galeria" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:15px;"></div>
+<div id="galeria" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:15px;"></div>
 </div>
 
 <!-- SURPRESA -->
 <div id="surpresa" class="card hidden">
 <h2>🎁 Surpresa</h2>
 <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="200">
-<p>Você é meu mundo 💌</p>
+<p>Você é meu lugar seguro 💌</p>
 </div>
 
 </div>
@@ -197,76 +196,65 @@ function show(id){
 
 /* DIAS JUNTOS */
 const inicio=new Date(2025,9,24);
+const hoje=new Date();
+const dias=Math.floor((hoje-inicio)/(1000*60*60*24));
+contador.innerText=`Estamos juntos há ${dias} dias 💖`;
 
-function calendarioRelacionamento(){
- const mes=document.getElementById('mesRelacionamento').value;
- const data=new Date(mes+"-01");
- const cal=document.getElementById('calRel');
- cal.innerHTML="";
- const hoje=new Date();
- const diasTotal=Math.floor((hoje-inicio)/(1000*60*60*24));
- document.getElementById('contador-dias').innerText=`Estamos juntos há ${diasTotal} dias 💖`;
-
- for(let i=1;i<=31;i++){
-   const d=new Date(data.getFullYear(),data.getMonth(),i);
-   if(d.getMonth()!==data.getMonth())break;
-   const div=document.createElement('div');
-   div.className='dia';
-   div.innerText=i;
-   cal.appendChild(div);
- }
+for(let i=1;i<=30;i++){
+ const d=document.createElement('div');
+ d.className='dia';
+ d.innerText=i;
+ calRel.appendChild(d);
 }
 
-function preencherMeses(select){
- for(let i=0;i<12;i++){
-  const d=new Date(2025,i,1);
-  const opt=document.createElement('option');
-  opt.value=`${d.getFullYear()}-${String(i+1).padStart(2,'0')}`;
-  opt.innerText=d.toLocaleString('pt-BR',{month:'long',year:'numeric'});
-  select.appendChild(opt);
- }
-}
-
-preencherMeses(mesRelacionamento);
-calendarioRelacionamento();
-
-/* FILMES */
+/* FILMES (exemplos reais, editáveis) */
 const filmes={
- "2026-01":{5:"Titanic",12:"Your Name",20:"Diário de uma Paixão"}
+ "2026-01":{3:"Duna: Parte 2",12:"Wonka",25:"Divertida Mente 2"},
+ "2026-02":{7:"Deadpool 3",14:"Bob Marley"}
 };
 
-function calendarioFilmes(){
- const mes=mesFilmes.value;
- const data=new Date(mes+"-01");
- const cal=document.getElementById('calFilmes');
- cal.innerHTML="";
- for(let i=1;i<=31;i++){
-  const d=new Date(data.getFullYear(),data.getMonth(),i);
-  if(d.getMonth()!==data.getMonth())break;
-  const div=document.createElement('div');
-  div.className='dia';
-  div.innerHTML=i+(filmes[mes]?.[i]?`<br>🎥 ${filmes[mes][i]}`:"");
-  cal.appendChild(div);
+function preencherMeses(){
+ for(let m in filmes){
+  const opt=document.createElement('option');
+  opt.value=m;
+  opt.innerText=m;
+  mesFilmes.appendChild(opt);
  }
 }
 
-preencherMeses(mesFilmes);
+function calendarioFilmes(){
+ calFilmes.innerHTML="";
+ const mes=mesFilmes.value;
+ for(let i=1;i<=31;i++){
+  const d=document.createElement('div');
+  d.className='dia';
+  d.innerHTML=i+(filmes[mes][i]?`<br>🎥 ${filmes[mes][i]}`:"");
+  calFilmes.appendChild(d);
+ }
+}
+
+preencherMeses();
 calendarioFilmes();
 
 /* MINI GAME */
 let pontos=0;
-function criarGame(){
- const area=document.getElementById('gameArea');
- area.innerHTML="";
- for(let i=0;i<20;i++){
-  const h=document.createElement('div');
-  h.className='heart';
-  h.innerText='💖';
-  h.onclick=()=>{pontos++;document.getElementById('pontos').innerText=pontos;}
-  area.appendChild(h);
- }
+
+function criarCoracao(){
+ const h=document.createElement('div');
+ h.className='heart';
+ h.innerText='💖';
+ h.style.left=Math.random()*90+"%";
+ h.style.animationDuration=3+Math.random()*4+"s";
+ h.onclick=()=>{
+   pontos++;
+   pontosSpan.innerText=pontos;
+   h.remove();
+ };
+ gameArea.appendChild(h);
+ setTimeout(()=>h.remove(),7000);
 }
-criarGame();
+
+setInterval(criarCoracao,600);
 
 function finalizarGame(){
  const nome=prompt("Seu nome:");
@@ -275,8 +263,7 @@ function finalizarGame(){
  li.innerText=`${nome}: ${pontos} pontos`;
  ranking.appendChild(li);
  pontos=0;
- document.getElementById('pontos').innerText=0;
- criarGame();
+ pontosSpan.innerText=0;
 }
 
 /* ÁLBUM */
