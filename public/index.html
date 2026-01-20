@@ -8,274 +8,273 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Baloo 2', cursive;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Baloo 2',cursive}
 
 body{
   background:linear-gradient(180deg,#ffd6e7,#fff);
   min-height:100vh;
   display:flex;
-  overflow-x:hidden;
 }
 
 .menu{
-  width:230px;
+  width:240px;
   background:#ff9acb;
   padding:20px;
-  color:white;
+  color:#fff;
 }
 
-.menu h2{
-  text-align:center;
-  margin-bottom:15px;
-}
+.menu h2{text-align:center;margin-bottom:20px}
 
 .menu button{
   width:100%;
   margin-bottom:10px;
   padding:10px;
   border:none;
-  border-radius:15px;
-  background:white;
+  border-radius:14px;
+  background:#fff;
   color:#ff4f9a;
   font-size:16px;
   cursor:pointer;
   transition:.2s;
 }
 
-.menu button:hover{
-  transform:scale(1.05);
-}
+.menu button:hover{transform:scale(1.05)}
 
-.content{
-  flex:1;
-  padding:20px;
-}
+.content{flex:1;padding:20px}
 
 .card{
-  background:white;
-  border-radius:25px;
+  background:#fff;
+  border-radius:24px;
   padding:20px;
   margin-bottom:20px;
-  box-shadow:0 4px 12px rgba(0,0,0,.1);
+  box-shadow:0 6px 16px rgba(0,0,0,.15);
   text-align:center;
 }
 
 .hidden{display:none}
 
-/* HELLO KITTY */
-.kitty{
-  width:70px;
-  position:fixed;
-  opacity:.3;
-}
-.k1{top:20px;left:260px}
-.k2{bottom:20px;right:20px}
-.k3{top:220px;right:40px}
-
-/* CALENDÁRIOS */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:10px;
-  margin-top:15px;
-}
-
-.dia{
-  padding:14px;
-  background:#ff8fb1;
-  color:white;
-  border-radius:15px;
-  font-weight:bold;
-}
-
-/* MINI GAME */
-#gameArea{
-  position:relative;
-  height:320px;
-  border-radius:20px;
-  overflow:hidden;
-  background:#ffe6f0;
-}
-
-.heart{
-  position:absolute;
-  font-size:32px;
-  cursor:pointer;
-  animation: float 6s linear infinite;
+.hello{
+  width:200px;
+  animation:float 3s ease-in-out infinite;
 }
 
 @keyframes float{
-  from{transform:translateY(350px)}
-  to{transform:translateY(-50px)}
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(0)}
 }
 
+.heart{
+  position:fixed;
+  font-size:20px;
+  pointer-events:none;
+  animation:pop 1s forwards;
+}
+
+@keyframes pop{
+  to{opacity:0;transform:translateY(-40px)}
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+  margin-top:15px;
+}
+
+.day{
+  padding:10px;
+  border-radius:12px;
+  background:#ff8fb1;
+  color:#fff;
+  font-weight:bold;
+}
+
+#gameArea{
+  position:relative;
+  height:300px;
+  background:#ffe6f0;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.heartGame{
+  position:absolute;
+  font-size:30px;
+  cursor:pointer;
+  animation:move 4s linear infinite;
+}
+
+@keyframes move{
+  from{top:100%}
+  to{top:-40px}
+}
 </style>
 </head>
 
 <body>
 
-<!-- Música -->
-<audio autoplay loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/09/audio_4b1f6dfc6d.mp3">
-</audio>
-
-<!-- Hello Kitty -->
-<img src="https://i.imgur.com/7yUvePI.png" class="kitty k1">
-<img src="https://i.imgur.com/7yUvePI.png" class="kitty k2">
-<img src="https://i.imgur.com/7yUvePI.png" class="kitty k3">
-
 <div class="menu">
-<h2>🐱💖 Menu 💖🐱</h2>
-<button onclick="show('home')">Início</button>
-<button onclick="show('dias')">Dias Juntos</button>
-<button onclick="show('filmes')">Filmes</button>
-<button onclick="show('game')">Mini Game</button>
-<button onclick="show('album')">Álbum</button>
-<button onclick="show('surpresa')">Surpresa 🎁</button>
+  <h2>🐱💖 Menu 💖🐱</h2>
+  <button onclick="show('home')">Início</button>
+  <button onclick="show('dias')">Dias Juntos</button>
+  <button onclick="show('filmes')">Filmes 🎬</button>
+  <button onclick="show('game')">Mini Game 💖</button>
+  <button onclick="show('album')">Álbum 📸</button>
+  <button onclick="show('timeline')">Linha do Tempo 🌸</button>
 </div>
 
 <div class="content">
 
-<!-- INÍCIO -->
 <div id="home" class="card">
-<h2>💗 Júlio & Joice 💗</h2>
-<img src="https://media.giphy.com/media/LHZyixOnHwDDy/giphy.gif" width="200">
-<p>Nosso cantinho fofo 🐱💞</p>
+  <h1>💖 Júlio & Joice 💖</h1>
+  <img class="hello" src="https://media.giphy.com/media/11sBLVxNs7v6WA/giphy.gif">
+  <p id="contador"></p>
+  <button onclick="toggleMusic()">🎵 Música</button>
 </div>
 
-<!-- DIAS JUNTOS -->
 <div id="dias" class="card hidden">
-<h2>📅 Nossa história</h2>
-<div id="contador"></div>
-<div id="calRel" class="grid"></div>
+  <h2>📅 Dias Juntos</h2>
+  <div id="contador-dias"></div>
+  <div id="calendario" class="grid"></div>
 </div>
 
-<!-- FILMES -->
 <div id="filmes" class="card hidden">
-<h2>🎬 Filmes do Mês</h2>
-<select id="mesFilmes" onchange="calendarioFilmes()"></select>
-<div id="calFilmes" class="grid"></div>
+  <h2>🎬 Filmes do Mês</h2>
+  <select id="mesFilme" onchange="carregarFilmes()"></select>
+  <div id="listaFilmes"></div>
 </div>
 
-<!-- MINI GAME -->
 <div id="game" class="card hidden">
-<h2>💖 Pegue os corações!</h2>
-<p>Pontos: <span id="pontos">0</span></p>
-<div id="gameArea"></div>
-<button onclick="finalizarGame()">Finalizar</button>
-<h3>🏆 Ranking</h3>
-<ul id="ranking"></ul>
+  <h2>💖 Pegue os corações</h2>
+  <p>Pontos: <span id="score">0</span></p>
+  <div id="gameArea"></div>
+  <button onclick="finalizarGame()">Finalizar</button>
+  <h3>🏆 Ranking</h3>
+  <ol id="ranking"></ol>
 </div>
 
-<!-- ÁLBUM -->
 <div id="album" class="card hidden">
-<h2>📸 Nosso Álbum</h2>
-<input type="file" multiple accept="image/*" onchange="addFotos(event)">
-<div id="galeria" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:15px;"></div>
+  <h2>📸 Álbum</h2>
+  <input type="file" multiple onchange="addFotos(event)">
+  <div id="galeria"></div>
 </div>
 
-<!-- SURPRESA -->
-<div id="surpresa" class="card hidden">
-<h2>🎁 Surpresa</h2>
-<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="200">
-<p>Você é meu lugar seguro 💌</p>
+<div id="timeline" class="card hidden">
+  <h2>🌸 Nossa História</h2>
+  <p>24/10/2025 — O começo 💕</p>
 </div>
 
 </div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c36f6d01f5.mp3">
+</audio>
 
 <script>
+const inicio = new Date("2025-10-24");
+const TMDB_API_KEY = "177d2372d7bd033577caf027ca60653e";
+
 function show(id){
- document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
+  document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
 }
 
-/* DIAS JUNTOS */
-const inicio=new Date(2025,9,24);
-const hoje=new Date();
-const dias=Math.floor((hoje-inicio)/(1000*60*60*24));
-contador.innerText=`Estamos juntos há ${dias} dias 💖`;
-
-for(let i=1;i<=30;i++){
- const d=document.createElement('div');
- d.className='dia';
- d.innerText=i;
- calRel.appendChild(d);
+function atualizar(){
+  const hoje=new Date();
+  const dias=Math.floor((hoje-inicio)/(1000*60*60*24));
+  document.getElementById("contador").innerText=`Estamos juntos há ${dias} dias 💖`;
+  document.getElementById("contador-dias").innerText=`${dias} dias juntos ❤️`;
 }
+atualizar();
 
-/* FILMES (exemplos reais, editáveis) */
-const filmes={
- "2026-01":{3:"Duna: Parte 2",12:"Wonka",25:"Divertida Mente 2"},
- "2026-02":{7:"Deadpool 3",14:"Bob Marley"}
-};
-
-function preencherMeses(){
- for(let m in filmes){
-  const opt=document.createElement('option');
-  opt.value=m;
-  opt.innerText=m;
-  mesFilmes.appendChild(opt);
- }
+function montarCalendario(){
+  const cal=document.getElementById("calendario");
+  cal.innerHTML="";
+  for(let i=1;i<=30;i++){
+    const d=document.createElement("div");
+    d.className="day";
+    d.innerText=i;
+    cal.appendChild(d);
+  }
 }
+montarCalendario();
 
-function calendarioFilmes(){
- calFilmes.innerHTML="";
- const mes=mesFilmes.value;
- for(let i=1;i<=31;i++){
-  const d=document.createElement('div');
-  d.className='dia';
-  d.innerHTML=i+(filmes[mes][i]?`<br>🎥 ${filmes[mes][i]}`:"");
-  calFilmes.appendChild(d);
- }
+/* 🎮 GAME */
+let score=0;
+function spawnHeart(){
+  const h=document.createElement("div");
+  h.className="heartGame";
+  h.innerText="💖";
+  h.style.left=Math.random()*90+"%";
+  h.onclick=()=>{
+    score++;
+    document.getElementById("score").innerText=score;
+    h.remove();
+  };
+  document.getElementById("gameArea").appendChild(h);
+  setTimeout(()=>h.remove(),4000);
 }
-
-preencherMeses();
-calendarioFilmes();
-
-/* MINI GAME */
-let pontos=0;
-
-function criarCoracao(){
- const h=document.createElement('div');
- h.className='heart';
- h.innerText='💖';
- h.style.left=Math.random()*90+"%";
- h.style.animationDuration=3+Math.random()*4+"s";
- h.onclick=()=>{
-   pontos++;
-   pontosSpan.innerText=pontos;
-   h.remove();
- };
- gameArea.appendChild(h);
- setTimeout(()=>h.remove(),7000);
-}
-
-setInterval(criarCoracao,600);
+setInterval(spawnHeart,800);
 
 function finalizarGame(){
- const nome=prompt("Seu nome:");
- if(!nome)return;
- const li=document.createElement('li');
- li.innerText=`${nome}: ${pontos} pontos`;
- ranking.appendChild(li);
- pontos=0;
- pontosSpan.innerText=0;
+  const nome=prompt("Seu nome:");
+  if(!nome)return;
+  const rank=JSON.parse(localStorage.getItem("rank")||"[]");
+  rank.push({nome,score});
+  rank.sort((a,b)=>b.score-a.score);
+  localStorage.setItem("rank",JSON.stringify(rank.slice(0,5)));
+  mostrarRanking();
+  score=0;
 }
 
-/* ÁLBUM */
-function addFotos(e){
- [...e.target.files].forEach(f=>{
-  const img=document.createElement('img');
-  img.src=URL.createObjectURL(f);
-  img.style.width='120px';
-  img.style.borderRadius='15px';
-  galeria.appendChild(img);
- });
+function mostrarRanking(){
+  const r=document.getElementById("ranking");
+  r.innerHTML="";
+  (JSON.parse(localStorage.getItem("rank")||"[]")).forEach(i=>{
+    const li=document.createElement("li");
+    li.innerText=`${i.nome} — ${i.score}`;
+    r.appendChild(li);
+  });
 }
+mostrarRanking();
+
+/* 🎬 FILMES */
+function carregarFilmes(){
+  const mes=document.getElementById("mesFilme").value;
+  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&language=pt-BR&primary_release_month=${mes}`)
+  .then(r=>r.json())
+  .then(d=>{
+    const l=document.getElementById("listaFilmes");
+    l.innerHTML="";
+    d.results.slice(0,5).forEach(f=>{
+      l.innerHTML+=`<p>🎬 ${f.title}</p>`;
+    });
+  });
+}
+
+for(let i=1;i<=12;i++){
+  const o=document.createElement("option");
+  o.value=i;o.innerText=`Mês ${i}`;
+  document.getElementById("mesFilme").appendChild(o);
+}
+
+/* 🎵 Música */
+function toggleMusic(){
+  const m=document.getElementById("music");
+  m.paused?m.play():m.pause();
+}
+
+/* 💖 CLIQUE */
+document.addEventListener("click",e=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=e.pageX+"px";
+  h.style.top=e.pageY+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1000);
+});
 </script>
 
 </body>
